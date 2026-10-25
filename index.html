@@ -1357,7 +1357,7 @@
 #tab-nav-driver, .btn-driver-entry, #driver-mode-bar, #driver-view,
 button[onclick*="report-modal"], #my-report-notice { display:none !important; }
 </style>
-<link rel="stylesheet" href="design.css?v=4">
+<link rel="stylesheet" href="design.css?v=5">
 </head>
 <body>
 
@@ -1575,10 +1575,11 @@ button[onclick*="report-modal"], #my-report-notice { display:none !important; }
     </div>
 
     <!-- Stop Selector (compact) -->
-    <div class="stop-section" style="margin-bottom:10px;">
+    <div class="stop-section" id="stop-section" style="margin-bottom:10px;">
       <p class="field-label">Зупинка посадки</p><div class="stop-row" id="stop-row"></div>
     </div>
 
+    <section class="next-card weekend-hero" id="weekend-hero" aria-live="polite" hidden></section>
     <!-- Next Bus Card (Clean, Minimal) -->
     <div class="next-card" id="hero-card">
       <div class="next-card-top-row">
@@ -1901,6 +1902,7 @@ button[onclick*="report-modal"], #my-report-notice { display:none !important; }
   </div>
 </div>
 
+<script src="weekend-timetable.js?v=1"></script>
 <script>
 // ── Route definitions ──
 const routes = {
@@ -2095,6 +2097,8 @@ function isTripCancelled(dir, tripTime, routeType) {
 
 // ── Stop selector rendering ──
 function renderStops() {
+  document.getElementById('stop-section').hidden = isWeekendTimetable();
+  if (isWeekendTimetable()) return;
   const row = document.getElementById('stop-row');
   const stops = stopsConfig[curDir];
   const sel = selectedStops[curDir];
@@ -2250,6 +2254,7 @@ function updateClock() {
 }
 
 function getList() {
+  if (isWeekendTimetable()) return getWeekendDepartures();
   const raw = curDir === 'to-pidg' ? scheduleToPidg : scheduleToTern;
   if (selectedRoutes.size === 0) return raw;
   return raw.filter(b => selectedRoutes.has(b.r));
@@ -2399,6 +2404,7 @@ function scrollToTrip(timeStr) {
 
 // ── Hero Card ──
 function updateHero() {
+  if (renderWeekendHero()) return;
   const { next, following, upcoming, tomorrow, cur } = findNext();
   if (!next) return;
 
@@ -2562,6 +2568,7 @@ function renderBusRow(b, isPast, isCurrent, offset, dName, isAtDest) {
 
 // ── Schedule List ──
 function renderSchedule() {
+  if (renderWeekendSchedule()) return;
   const container = document.getElementById('schedule-container');
   const list = getList();
   const { next, tomorrow, cur } = findNext();

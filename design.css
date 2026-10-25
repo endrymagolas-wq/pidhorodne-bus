@@ -191,3 +191,17 @@ header { padding: 0 0 24px; margin-bottom: 28px; border-bottom: 1px solid var(--
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+[hidden] { display: none !important; }
+.weekend-hero h2 { font-size: 20px; line-height: 1.4; margin: 12px 0; }
+.weekend-hero p, .weekend-note { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+.weekend-time { font-size: 64px; font-weight: 600; line-height: 1.1; margin-top: 16px; font-variant-numeric: tabular-nums; }
+.weekend-list { display: grid; gap: 12px; margin-top: 18px; }
+.weekend-trip { padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.weekend-trip.current { border-color: var(--accent); }
+.weekend-trip-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.weekend-trip-heading time { font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.weekend-trip-heading span { font-size: 16px; }
+.weekend-trip p { font-size: 13px; line-height: 1.5; color: var(--text-secondary); margin-top: 5px; }
+.weekend-trip .weekend-station { color: var(--text); }
+.weekend-past { display: block; font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
